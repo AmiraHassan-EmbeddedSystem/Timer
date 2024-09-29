@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000fffffffffffffffffffffffffffffffff8ffffff00000000c302000058020000</PLACEMENT>
+  <PLACEMENT>2c00000002000000010000000083ffff0083ffffffffffffffffffff8a0200003f0000009705000097020000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -15,7 +15,7 @@
      <ITEM name="Version">100</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="506" x="81" flags="00008033" y="202" h="417" pid="1" iid="-1">
+   <POPUP w="426" x="699" flags="00008033" y="43" h="184" pid="1" iid="-1">
     <PROPERTIES>
      <ITEM name="Address Column Width">83</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -23,8 +23,8 @@
      <ITEM name="Item 0">"INTCON1","0x0FF2",00000001,0000000C,4082,1,0,23A80000,0,00000000,00000000</ITEM>
      <ITEM name="Item 1">"TMR0H","0x0FD7",00000001,00000004,4055,1,6,00000002,0,00000000,00000000</ITEM>
      <ITEM name="Item 2">"TMR0L","0x0FD6",00000001,00000004,4054,1,6,00000002,0,00000000,00000000</ITEM>
-     <ITEM name="Item 3">"tmr_flag","0x004C",00000001,00000004,76,2,4,00000003,0,00000000,00000000</ITEM>
-     <ITEM name="Item 4">"read_value","0x0058",00000001,00000004,88,2,4,00000003,0,00000000,00000000</ITEM>
+     <ITEM name="Item 3">"read_value","0x005A",00000001,00000004,90,2,4,00000003,0,00000000,00000000</ITEM>
+     <ITEM name="Item 4">"tmr_flag","0x004C",00000001,00000004,76,2,4,00000003,0,00000000,00000000</ITEM>
      <ITEM name="Item 5">"timer1_preload","0x0021",00000001,00000004,33,2,4,00000003,0,00000000,00000000</ITEM>
      <ITEM name="Item 6">"timer1_on","0x001F",00000001,00000004,31,2,4,00000003,0,00000000,00000000</ITEM>
      <ITEM name="Item 7">"read_value","0x002D",00000001,00000004,45,2,4,00000003,0,00000000,00000000</ITEM>
@@ -38,7 +38,7 @@
      <ITEM name="Value Column Width">83</ITEM>
      <ITEM name="Version">100</ITEM>
      <ITEM name="Watch Expression Column Width">83</ITEM>
-     <ITEM name="nItems">8</ITEM>
+     <ITEM name="nItems">5</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="805" x="561" flags="0000002a" y="157" h="400" pid="1" iid="1">
