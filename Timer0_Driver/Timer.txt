@@ -1,0 +1,205 @@
+	// TIMER0 => COUNTER
+
+volatile uint16 tmr_counter = 0;
+volatile uint16 counter = 0;
+void app_timer0(void){
+    counter++;
+}
+
+Timer0_t timer0_counter = {
+    .Timer0_InterruptHandler = app_timer0,
+    .clock_source_mood = TIMER0_COUNTER_MOOD_CFG,
+    .source_edge = TIMER0_RISING_EDGE_CFG,
+    .register_size = TIMER0_16BIT_CFG,
+    .prescaler_mood = TIMER0_PRESCALER_DISABLE_CFG,
+    .preload_data = 0,
+};
+
+void initialization(void);
+void main(void) {
+    initialization();
+    while(1){
+        Timer0_Read(&timer0_counter, &tmr_counter);
+        
+
+//        __delay_ms(150); 
+//        Timer0_Write(&timer0_counter, 0);
+//                tmr_counter = 0;
+    }
+
+    return;
+}
+
+ *************************************************************************
+	// TIMER0 => TIMER
+
+volatile uint16 tmr_flag = 0, read_value = 0;
+led_t led = {.led_status = GPIO_LOW, .led_port = GPIO_PORTC, .led_pin = GPIO_PIN0};
+void app_timer0(void){
+    tmr_flag++;
+    Led_Toggle(&led);
+}
+
+Timer0_t tmr = { // 100ms
+    .Timer0_InterruptHandler = app_timer0,
+    .clock_source_mood = TIMER0_TIMER_MOOD_CFG,
+    .register_size = TIMER0_16BIT_CFG,  
+    .prescaler_mood = TIMER0_PRESCALER_ENABLE_CFG,
+    .prescaler_value = PRESCALER_MOD_4,
+    .preload_data = 15536,
+};
+
+void initialization(void);
+void main(void) {
+
+    initialization();
+    Timer0_Read(&tmr, &read_value);
+    __delay_ms(150);
+     
+    return;
+}
+
+void initialization(void){  
+    Timer0_Init(&tmr);
+    Led_Init(&led);
+}
+
+******************************************************************
+	// TIMER1 => TIMER
+
+led_t led = {.led_port = GPIO_PORTC, .led_pin = GPIO_PIN0, .led_status = GPIO_LOW};
+volatile uint16 counter = 0;
+void timer1_DefaultInterruptHandler(void)
+{
+    counter++;
+}
+
+void timer1_timer_init(void){
+    Timer1_t tmr_obj;
+    tmr_obj.Timer1_InterruptHandler = timer1_DefaultInterruptHandler;
+    tmr_obj.timer1_mood = TIMER1_TIMER_MOOD_CFG;
+    tmr_obj.timer1_prescaler_value = TIMER1_PRESCALER_DIV_BY_4;
+    tmr_obj.timer1_preload_value = 15536;
+    tmr_obj.timer1_reg_rw_mood = TIMER1_RW_REG_16BIT_MOOD;
+    Timer1_Init(&tmr_obj);
+        
+}
+
+*******************************************************************
+	// TIMER1 => COUNTER
+
+void main(void) {
+
+    Timer1_t counter_obj;
+    counter_obj.Timer1_InterruptHandler = timer1_DefaultInterruptHandler;
+    counter_obj.timer1_mood = TIMER1_COUNTER_MOOD_CFG;
+    counter_obj.timer1_prescaler_value = TIMER1_PRESCALER_DIV_BY_1;
+    counter_obj.timer1_preload_value = 0;
+    counter_obj.timer1_reg_rw_mood = TIMER1_RW_REG_16BIT_MOOD;
+    counter_obj.timer1_counter_mood = TIMER1_SYNC_COUNTER_MOOD_CFG;
+    Timer1_Init(&counter_obj);
+    Timer1_Read(&counter_obj, &counter_value);
+     
+    return;
+}
+
+*******************************************************************
+ 	// TIMER2 => COUNTER
+
+volatile uint16 tmr2_counter = 0;
+void timer2_DefaultInterruptHandler(void)
+{
+    tmr2_counter++;
+}
+
+Timer2_t tmr2_obj;
+
+volatile uint16 tmr2_value = 0;
+void main(void) {
+
+    tmr2_obj.Timer2_InterruptHandler = timer2_DefaultInterruptHandler;
+    tmr2_obj.select_prescaler_value = TIMER2_PRESCALER_DIV_BY_1;
+    tmr2_obj.select_postcale_value = TIMER2_POSTCALE_DIV_BY_16;
+    tmr2_obj.timer2_preload = 249;
+    
+    Timer2_Init(&tmr2_obj);
+    Timer2_Read(&tmr2_obj, &tmr2_value);
+    __delay_ms(150);
+    return;
+}
+
+*****************************************************************
+	// TIMER3 => TIMRE
+
+led_t led = {.led_port = GPIO_PORTD, .led_pin = GPIO_PIN0, .led_status = GPIO_LOW};
+
+volatile uint16 tmr3_counter;
+void timer3_DefaultInterruptHandler(void)
+{
+    tmr3_counter++;
+    Led_Toggle(&led);
+
+}
+
+void initialization(void);
+    
+
+void timer3_timer_init(void){
+    Timer3_t tmr3_obj;
+    tmr3_obj.Timer3_InterruptHandler = timer3_DefaultInterruptHandler;
+    tmr3_obj.timer3_mood = TIMER3_TIMER_MOOD_CFG;
+    tmr3_obj.timer3_prescaler_value = TIMER3_PRESCALER_DIV_BY_8;
+    tmr3_obj.timer3_preload_value = 15536;
+    tmr3_obj.timer3_reg_mood = TIMER3_RW_REG_16BIT_MOOD;
+    Timer3_Init(&tmr3_obj);
+    
+}    
+    
+volatile uint16 tmr3_value = 0;
+void main(void) {
+    timer3_timer_init();
+    __delay_ms(150);
+    Led_Init(&led);
+    return;
+}
+
+void initialization(void){  
+    
+}
+
+
+************************************************************8
+	// TIMER3 => COUNTER
+
+#include <xc.h>
+//#include <builtins.h>
+#include "project.h"
+#define _XTAL_FREQ 80000000UL
+
+volatile uint16 tmr3_counter_count;
+void timer3_DefaultInterruptHandler(void)
+{
+    tmr3_counter_count++;
+}
+
+Timer3_t tmr3_counter_obj;
+void timer3_timer_init(void){
+    tmr3_counter_obj.Timer3_InterruptHandler = timer3_DefaultInterruptHandler;
+    tmr3_counter_obj.timer3_mood = TIMER3_COUNTER_MOOD_CFG;
+    tmr3_counter_obj.timer3_prescaler_value = TIMER3_PRESCALER_DIV_BY_1;
+    tmr3_counter_obj.timer3_preload_value = 0;
+    tmr3_counter_obj.timer3_reg_mood = TIMER3_RW_REG_16BIT_MOOD;
+    tmr3_counter_obj.timer3_counter_mood = TIMER3_SYNC_COUNTER_MOOD_CFG;
+    Timer3_Init(&tmr3_counter_obj);
+    
+}    
+    
+volatile uint16 tmr3_read_value = 0;
+void main(void) {
+    timer3_timer_init();
+    while(1){
+        Timer3_Read(&tmr3_counter_obj, &tmr3_read_value);
+        __delay_ms(150);
+    }
+    return;
+}
