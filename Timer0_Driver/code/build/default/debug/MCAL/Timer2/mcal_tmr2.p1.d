@@ -1,9 +1,0 @@
-build/default/debug/MCAL/Timer2/mcal_tmr2.p1:  \
-MCAL/Timer2/mcal_tmr2.c  \
-MCAL/Timer2/mcal_tmr2.h  \
-MCAL/Timer2/../GPIO/hal_gpio.h  \
-MCAL/Timer2/../GPIO/../mcal_std_types.h  \
-MCAL/Timer2/../INTERRUPT/internal_interrupt.h  \
-MCAL/Timer2/../INTERRUPT/manage_interrupt.h  \
-MCAL/Timer2/../INTERRUPT/interrupt_config.h  \
-MCAL/Timer2/../INTERRUPT/interrupt_gen_cfg.h 
